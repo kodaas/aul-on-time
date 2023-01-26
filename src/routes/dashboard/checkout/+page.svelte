@@ -2,8 +2,8 @@
 	import { LoginWithGoogle } from '$lib/auth';
 	import { authStore } from './../../../stores';
 	import Button from '../../Button.svelte';
-	import { goto } from '$app/navigation';
 	import { handlePayment } from '$lib/auth/Payment';
+	import { goto } from '$app/navigation';
 	let PaymentMethod: string = 'cash';
 
 	$: isSelected = (value: string) => value === PaymentMethod;
@@ -16,15 +16,15 @@
 
 		function addPayment() {
 			// TODO: Add Payment Plaform Here
-			handlePayment('fiyinfoluwa.ajala@student.aul.edu.ng', 502123);
+			handlePayment('fiyinfoluwa.ajala@student.aul.edu.ng', 5123);
 		}
 
 		if (!$authStore.isLoggedIn) {
 			LoginWithGoogle().then(() => {
-				addPayment();
+				PaymentMethod !== 'card' ? goto('/dashboard/track') : addPayment();
 			});
 		} else {
-			addPayment();
+			PaymentMethod !== 'card' ? goto('/dashboard/track') : addPayment();
 		}
 	};
 </script>

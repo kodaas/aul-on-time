@@ -19,7 +19,7 @@
 			description: 'Native oha soup @ goat meat with EBA',
 			price: '₦3,000',
 			img: eba,
-			isAvailable: false
+			isAvailable: true
 		},
 		{
 			id: '3',
@@ -27,32 +27,8 @@
 			description: 'Fried Goat Meat',
 			price: '₦800',
 			img: goatMeat,
-			isAvailable: true
-		},
-		{
-			id: '3',
-			name: 'Goat Meat',
-			description: 'Fried Goat Meat',
-			price: '₦500',
-			img: goatMeat,
-			isAvailable: true
-		},
-		{
-			id: '3',
-			name: 'Goat Meat',
-			description: 'Fried Goat Meat',
-			price: '₦8000',
-			img: goatMeat,
 			isAvailable: false
 		},
-		{
-			id: '3',
-			name: 'Goat Meat',
-			description: 'Fried Goat Meat',
-			price: '₦1800',
-			img: goatMeat,
-			isAvailable: true
-		}
 	];
 </script>
 
@@ -60,7 +36,7 @@
 	<MenuNav />
 
 	<div class="grid md:grid-cols-2 gap-6 mt-8">
-		<div
+		<!-- <div
 			title="Add New Food"
 			class="relative box-border border border-dashed border-gray-500 rounded-lg overflow-hidden grid grid-cols-3 cursor-pointer active:opacity-60 hover:border-primary"
 		>
@@ -92,7 +68,8 @@
 			<div
 				class="col-span-1 bg-gray-300 relative min-h-[150px] md:min-h-[170px] bg-no-repeat bg-1/2 bg-cover"
 			/>
-		</div>
+		</div> -->
+
 		{#each foods as food, id (id)}
 			<Food {...food} />
 		{/each}
