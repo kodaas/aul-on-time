@@ -11,3 +11,7 @@ export const authStore = writable<AuthStoreModel>({
 	user: null,
 	firebaseControlled: false
 });
+
+export const stateStore = writable({
+	DeliveryMethod: 'delivery'
+});

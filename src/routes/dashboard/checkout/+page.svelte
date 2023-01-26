@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { LoginWithGoogle } from '$lib/auth';
-	import { authStore } from './../../../stores';
+	import { authStore, stateStore } from './../../../stores';
 	import Button from '../../Button.svelte';
 	import { handlePayment } from '$lib/auth/Payment';
 	import { goto } from '$app/navigation';
@@ -20,8 +20,10 @@
 		}
 
 		if (!$authStore.isLoggedIn) {
-			LoginWithGoogle().then(() => {
-				PaymentMethod !== 'card' ? goto('/dashboard/track') : addPayment();
+			LoginWithGoogle().then((status) => {
+				if (status) {
+					PaymentMethod !== 'card' ? goto('/dashboard/track') : addPayment();
+				}
 			});
 		} else {
 			PaymentMethod !== 'card' ? goto('/dashboard/track') : addPayment();
@@ -147,39 +149,41 @@
 			</div>
 		</fieldset>
 
-		<fieldset class="col-span-6">
-			<legend class="block text-sm font-medium text-gray-700"> Location </legend>
+		{#if $stateStore.DeliveryMethod === 'delivery'}
+			<fieldset class="col-span-6">
+				<legend class="block text-sm font-medium text-gray-700"> Location </legend>
 
-			<div class="mt-1 -space-y-px bg-white rounded-md shadow-sm">
-				<div>
-					<label for="building" class="sr-only">Building</label>
+				<div class="mt-1 -space-y-px bg-white rounded-md shadow-sm">
+					<div>
+						<label for="building" class="sr-only">Building</label>
 
-					<select
-						id="building"
-						class="relative w-full border-gray-200 rounded-t-md focus:z-10 sm:text-sm"
-					>
-						<option>Admin</option>
-						<option>Peace</option>
-						<option>Purity</option>
-						<option>Patience</option>
-						<option>Faculty 01</option>
-						<option>Faculty 02</option>
-						<option>Back of Faculty</option>
-					</select>
+						<select
+							id="building"
+							class="relative w-full border-gray-200 rounded-t-md focus:z-10 sm:text-sm"
+						>
+							<option>Admin</option>
+							<option>Peace</option>
+							<option>Purity</option>
+							<option>Patience</option>
+							<option>Faculty 01</option>
+							<option>Faculty 02</option>
+							<option>Back of Faculty</option>
+						</select>
+					</div>
+
+					<div>
+						<label class="sr-only" for="block"> Block </label>
+
+						<input
+							type="text"
+							id="block"
+							placeholder="Exact Block Or Room Number"
+							class="relative w-full border-gray-200 rounded-b-md focus:z-10 sm:text-sm"
+						/>
+					</div>
 				</div>
-
-				<div>
-					<label class="sr-only" for="block"> Block </label>
-
-					<input
-						type="text"
-						id="block"
-						placeholder="Exact Block Or Room Number"
-						class="relative w-full border-gray-200 rounded-b-md focus:z-10 sm:text-sm"
-					/>
-				</div>
-			</div>
-		</fieldset>
+			</fieldset>
+		{/if}
 
 		<div class="col-span-6 space-x-5 mt-5">
 			<Button on:click={CheckOut}>Pay Now</Button>
