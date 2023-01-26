@@ -1,34 +1,36 @@
 <script lang="ts">
+	import { LoginWithGoogle } from '$lib/auth';
+	import { authStore } from './../../../stores';
 	import Button from '../../Button.svelte';
+	import { goto } from '$app/navigation';
+	import { handlePayment } from '$lib/auth/Payment';
 	let PaymentMethod: string = 'cash';
 
 	$: isSelected = (value: string) => value === PaymentMethod;
 
 	$: Hidden = !isSelected('card') ? 'hidden' : '';
+
+	const CheckOut = (e: Event) => {
+		e.preventDefault();
+		// TODO: Validate Form
+
+		function addPayment() {
+			// TODO: Add Payment Plaform Here
+			handlePayment('fiyinfoluwa.ajala@student.aul.edu.ng', 502123);
+		}
+
+		if (!$authStore.isLoggedIn) {
+			LoginWithGoogle().then(() => {
+				addPayment();
+			});
+		} else {
+			addPayment();
+		}
+	};
 </script>
 
 <section>
 	<form class="grid grid-cols-6 gap-4">
-		<!-- <div class="col-span-3">
-			<label for="FirstName" class="block text-xs font-medium text-gray-700"> First Name </label>
-
-			<input
-				type="text"
-				id="FirstName"
-				class="w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm"
-			/>
-		</div> -->
-
-		<!-- <div class="col-span-3">
-			<label for="LastName" class="block text-xs font-medium text-gray-700"> Last Name </label>
-
-			<input
-				type="text"
-				id="LastName"
-				class="w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm"
-			/>
-		</div> -->
-
 		<div class="col-span-6">
 			<label for="Email" class="block text-xs font-medium text-gray-700"> Email </label>
 
@@ -180,7 +182,7 @@
 		</fieldset>
 
 		<div class="col-span-6 space-x-5 mt-5">
-			<Button>Pay Now</Button>
+			<Button on:click={CheckOut}>Pay Now</Button>
 			<Button to={'/dashboard/menu'}>Back to Menu</Button>
 		</div>
 	</form>
