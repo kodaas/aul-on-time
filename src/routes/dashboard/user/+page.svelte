@@ -6,7 +6,10 @@
 
 <div>
 	<h1 class="text-9xl py-10">User</h1>
+
 	{#if $authStore.isLoggedIn}
+		<h1 class="text-5xl py-10">Hello {$authStore.user.displayName}</h1>
+		<h1 class="text-5xl py-10">Email: {$authStore.user.email}</h1>
 		<Button to={'/dashboard/history'}>Order History</Button>
 		<Button on:click={Logout} to={'/'}>Logout</Button>
 	{:else}

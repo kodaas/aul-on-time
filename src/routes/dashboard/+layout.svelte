@@ -7,7 +7,7 @@
 
 <Nav />
 
-<main class="max-w-7xl min-h-[85vh] mx-auto lg:flex relative bg-white md:pt-0">
+<main class="max-w-7xl min-h-[85vh] mx-auto lg:flex relative bg-white md:pt-0 px-5">
 	<slot />
 </main>
 
