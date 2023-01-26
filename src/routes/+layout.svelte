@@ -1,12 +1,10 @@
 <script>
-  import "../app.css";
-	import Footer from "./Footer.svelte";
+	import '../app.css';
+	import Footer from './Footer.svelte';
 </script>
 
-
 <main>
-  <slot />
+	<slot />
 </main>
-
 
 <Footer />

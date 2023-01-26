@@ -1,12 +1,15 @@
 <script lang="ts">
+	import { LoginWithGoogle, Logout } from '$lib/auth';
+	import { authStore } from '../../../stores';
 	import Button from '../../Button.svelte';
-import type { PageData } from './$types';
-
-	// export let data: PageData;
 </script>
-
 
 <div>
 	<h1 class="text-9xl py-10">User</h1>
-	<Button to={'/dashboard/history'}>Order History</Button>
+	{#if $authStore.isLoggedIn}
+		<Button to={'/dashboard/history'}>Order History</Button>
+		<Button on:click={Logout} to={'/'}>Logout</Button>
+	{:else}
+		<Button on:click={LoginWithGoogle} size={'small'}>Login with Google</Button>
+	{/if}
 </div>

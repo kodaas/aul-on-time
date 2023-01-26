@@ -22,7 +22,7 @@
 			>
 		{:else}
 			<span class="bg-red-50 self-start mt-2 py-[o.1rem] px-2 text-red-700 text-xs rounded-full"
-				>Available</span
+				>Not Available</span
 			>
 		{/if}
 
