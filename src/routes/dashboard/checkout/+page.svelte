@@ -8,8 +8,6 @@
 
 	$: isSelected = (value: string) => value === PaymentMethod;
 
-	$: Hidden = !isSelected('card') ? 'hidden' : '';
-
 	const CheckOut = (e: Event) => {
 		e.preventDefault();
 		// TODO: Validate Form
@@ -39,6 +37,8 @@
 			<input
 				type="email"
 				id="Email"
+				readonly
+				value={$authStore?.user?.email}
 				class="w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm"
 			/>
 		</div>
@@ -49,6 +49,22 @@
 			<input
 				type="tel"
 				id="Phone"
+				value={$authStore?.user?.phoneNumber}
+				readonly={$authStore?.user?.phoneNumber}
+				required
+				class="w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm"
+			/>
+		</div>
+
+		<div class="col-span-6">
+			<label for="course" class="block text-xs font-medium text-gray-700"> Course </label>
+
+			<input
+				type="text"
+				id="course"
+				value={$authStore?.user?.course}
+				readonly={$authStore?.user?.course}
+				required
 				class="w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm"
 			/>
 		</div>
@@ -57,6 +73,9 @@
 			<div class="grid w-full grid-cols-3 space-x-2 rounded-xl border p-1">
 				<div>
 					<input
+						on:click={(e) => {
+							PaymentMethod = 'card';
+						}}
 						type="radio"
 						name="option"
 						id="card"
@@ -65,9 +84,6 @@
 					/>
 					<label
 						for="card"
-						on:click={(e) => {
-							PaymentMethod = 'card';
-						}}
 						class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-primary peer-checked:font-bold peer-checked:text-white"
 						>Card</label
 					>
@@ -75,6 +91,9 @@
 
 				<div>
 					<input
+						on:click={(e) => {
+							PaymentMethod = 'cash';
+						}}
 						type="radio"
 						name="option"
 						id="cash"
@@ -83,9 +102,6 @@
 					/>
 					<label
 						for="cash"
-						on:click={(e) => {
-							PaymentMethod = 'cash';
-						}}
 						class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-primary peer-checked:font-bold peer-checked:text-white"
 						>Cash</label
 					>
@@ -93,6 +109,9 @@
 
 				<div>
 					<input
+						on:click={(e) => {
+							PaymentMethod = 'pos';
+						}}
 						type="radio"
 						name="option"
 						id="pos"
@@ -101,52 +120,12 @@
 					/>
 					<label
 						for="pos"
-						on:click={(e) => {
-							PaymentMethod = 'pos';
-						}}
 						class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-primary peer-checked:font-bold peer-checked:text-white"
 						>POS</label
 					>
 				</div>
 			</div>
 			<legend class="block text-sm font-medium mb-3 text-gray-700"> Payment Method </legend>
-
-			<div class={`mt-1 ${Hidden} -space-y-px bg-white rounded-md shadow-sm`}>
-				<div>
-					<label for="CardNumber" class="sr-only"> Card Number </label>
-
-					<input
-						type="text"
-						id="CardNumber"
-						placeholder="Card Number"
-						class="relative w-full mt-1 border-gray-200 rounded-t-md focus:z-10 sm:text-sm"
-					/>
-				</div>
-
-				<div class="flex -space-x-px">
-					<div class="flex-1">
-						<label for="CardExpiry" class="sr-only"> Card Expiry </label>
-
-						<input
-							type="text"
-							id="CardExpiry"
-							placeholder="Expiry Date"
-							class="relative w-full border-gray-200 rounded-bl-md focus:z-10 sm:text-sm"
-						/>
-					</div>
-
-					<div class="flex-1">
-						<label for="CardCVC" class="sr-only"> Card CVC </label>
-
-						<input
-							type="text"
-							id="CardCVC"
-							placeholder="CVC"
-							class="relative w-full border-gray-200 rounded-br-md focus:z-10 sm:text-sm"
-						/>
-					</div>
-				</div>
-			</div>
 		</fieldset>
 
 		{#if $stateStore.DeliveryMethod === 'delivery'}
@@ -158,6 +137,7 @@
 						<label for="building" class="sr-only">Building</label>
 
 						<select
+							required
 							id="building"
 							class="relative w-full border-gray-200 rounded-t-md focus:z-10 sm:text-sm"
 						>
@@ -175,6 +155,7 @@
 						<label class="sr-only" for="block"> Block </label>
 
 						<input
+							required
 							type="text"
 							id="block"
 							placeholder="Exact Block Or Room Number"

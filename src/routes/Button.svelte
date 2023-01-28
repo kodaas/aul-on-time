@@ -2,6 +2,7 @@
 	// export let type:String = "primary";
 	export let size: String = 'default';
 	export let to: string = '';
+	export let disabled: boolean = false;
 
 	$: padding = size === 'default' ? 'px-8 py-3' : 'px-2 py-1';
 	$: rounded = size === 'default' ? 'rounded-2xl' : 'rounded-lg';
@@ -26,6 +27,7 @@
 {:else}
 	<button
 		on:click
+		{disabled}
 		class={`group text-black relative inline-block focus:outline-none focus:ring ${rounded}`}
 	>
 		<span

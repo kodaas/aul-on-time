@@ -22,7 +22,7 @@ export const auth = getAuth(app);
 onAuthStateChanged(auth, (user) => {
 	authStore.set({
 		isLoggedIn: user !== null,
-		user,
+		user: {...user, course: 'Computer Science', phoneNumber: '+234 7044 8962 63'},
 		firebaseControlled: true
 	});
 
