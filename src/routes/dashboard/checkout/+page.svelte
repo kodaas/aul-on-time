@@ -41,7 +41,7 @@
 				type="email"
 				id="Email"
 				readonly
-				value={$authStore?.user?.email}
+				value={$authStore?.user?.email || ''}
 				class="w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm"
 			/>
 		</div>
