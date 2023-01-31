@@ -23,11 +23,11 @@ export interface FoodModel {
 	foodId: string;
 	name: string;
 	description: string;
-	price: number;
-	packPrice: number;
+	price: string;
+	packPrice: string;
 	img: string;
 	isAvailable: boolean;
-	categories: CategoryModel[];
+	categories: string[];
 }
 
 export interface CategoryModel {
@@ -37,7 +37,7 @@ export interface CategoryModel {
 export interface PackModel {
 	foodId: string;
 	quantity: number;
-	extras: ExtraModel;
+	extras: ExtraModel[];
 	status: string;
 }
 

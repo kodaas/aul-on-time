@@ -1,6 +1,11 @@
 import { writable } from 'svelte/store';
-import type { AuthStoreModel, StateStoreModel } from '$lib/model';
-
+import type {
+	AuthStoreModel,
+	CheckoutModel,
+	FoodModel,
+	PackModel,
+	StateStoreModel
+} from '$lib/model';
 
 export const authStore = writable<AuthStoreModel>({
 	isLoggedIn: false,
@@ -10,13 +15,25 @@ export const authStore = writable<AuthStoreModel>({
 });
 
 export const stateStore = writable<StateStoreModel>({
-	DeliveryMethod: 'delivery',
+	DeliveryMethod: 'pickup',
 	foodCategories: [],
 	openTime: '09:30 am - 10:00 pm',
 	location: {
 		building: 'peace',
 		block: 'F211'
 	}
+});
+
+export const foodStore = writable<FoodModel[]>([]);
+
+export const cartStore = writable<PackModel[]>([]);
+
+export const checkoutStore = writable<CheckoutModel>({
+	subTotal: 0,
+	cartSize: 0,
+	deliveryFee: 250,
+	serviceFee: 0,
+	Total: 0
 });
 
 // export const cartStore = writable<foodModel[]>();
@@ -45,12 +62,12 @@ export const stateStore = writable<StateStoreModel>({
 
 */
 
-export const checkoutStore = writable({
-	DeliveryMethod: 'delivery'
-});
+// export const checkoutStore = writable({
+// 	DeliveryMethod: 'delivery'
+// });
 
-export const foodStore = writable([
-	{
-		DeliveryMethod: 'delivery'
-	}
-]);
+// export const foodStore = writable([
+// 	{
+// 		DeliveryMethod: 'delivery'
+// 	}
+// ]);

@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+	import { cartStore, checkoutStore } from '../../../stores';
 	import Button from '../../Button.svelte';
 	import CartItem from './CartItem.svelte';
 </script>
@@ -8,7 +9,7 @@
 	<div>
 		<div class="flex items-center mb-2">
 			<p class="text-brandmain flex-1"><span class="font-medium text-sm ">Your Order</span></p>
-			<button class="text-xs flex items-center w-fit bg-gray-100 py-2 px-3 rounded-full"
+			<!-- <button class="text-xs flex items-center w-fit bg-gray-100 py-2 px-3 rounded-full"
 				><svg
 					width="12"
 					height="12"
@@ -30,29 +31,35 @@
 						stroke-linejoin="round"
 					/></svg
 				>Add another pack</button
-			>
+			> -->
 		</div>
 
 		<div class="w-full border-t border-gray-200 mb-5" />
 
-		<div class="">
-			<CartItem />
+		<div>
+			{#if $cartStore.length}
+				{#each $cartStore as cartItem, id}
+					<CartItem foodId={cartItem.foodId} {id} quantity={cartItem.quantity} />
+				{/each}
+			{:else}
+				<h2 class="text-center py-14 text-lg">🛒 Your cart is Empty</h2>
+			{/if}
 		</div>
 
 		<div class="w-full border-t border-gray-200 mt-4" />
 
 		<div class="mt-8 mb-6 text-sm">
 			<p class="flex items-center justify-between mb-6">
-				<span>Sub total (1 item)</span><span>₦6,100</span>
+				<span>Sub total ({$checkoutStore.cartSize} item)</span><span>₦{$checkoutStore.subTotal}</span>
 			</p>
 			<p class="flex items-center justify-between mb-6">
-				<span>Delivery fee</span><span>₦0</span>
+				<span>Delivery fee</span><span>₦{$checkoutStore.deliveryFee}</span>
 			</p>
 			<p class="flex items-center justify-between mb-6">
-				<span>Service fee</span><span>₦0</span>
+				<span>Service fee</span><span>₦{$checkoutStore.serviceFee}</span>
 			</p>
 			<p class="flex items-center justify-between font-bold">
-				<span>Total</span><span class="">₦6,100</span>
+				<span>Total</span><span class="">₦{$checkoutStore.Total}</span>
 			</p>
 		</div>
 

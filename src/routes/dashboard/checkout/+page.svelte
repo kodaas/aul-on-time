@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { checkoutStore } from './../../../stores';
 	import { LoginWithGoogle } from '$lib/auth';
 	import { authStore, stateStore } from './../../../stores';
 	import Button from '../../Button.svelte';
@@ -11,20 +12,22 @@
 	const CheckOut = (e: Event) => {
 		e.preventDefault();
 		// TODO: Validate Form
+		
 
 		function addPayment() {
 			// TODO: Add Payment Plaform Here
-			handlePayment('fiyinfoluwa.ajala@student.aul.edu.ng', 5123);
+			if ($checkoutStore.Total - 250)
+				handlePayment('fiyinfoluwa.ajala@student.aul.edu.ng', $checkoutStore.Total);
 		}
 
 		if (!$authStore.isLoggedIn) {
 			LoginWithGoogle().then((status) => {
-				if (status) {
+				if (status && $checkoutStore.Total - 250)
 					PaymentMethod !== 'card' ? goto('/dashboard/track') : addPayment();
-				}
 			});
 		} else {
-			PaymentMethod !== 'card' ? goto('/dashboard/track') : addPayment();
+			if ($checkoutStore.Total - 250)
+				PaymentMethod !== 'card' ? goto('/dashboard/track') : addPayment();
 		}
 	};
 </script>

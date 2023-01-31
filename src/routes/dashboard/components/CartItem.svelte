@@ -1,6 +1,22 @@
+<script lang="ts">
+	import type { ExtraModel } from '$lib/model';
+	import { foodStore, checkoutStore } from '../../../stores';
+
+	export let foodId: string;
+	export let quantity: number;
+	export const extras: ExtraModel[] = [];
+	export const status: string = '';
+	export let id: number;
+
+	let food = $foodStore.filter((x) => x.foodId === foodId)[0];
+
+	$checkoutStore.subTotal = $checkoutStore.subTotal + (+food.price * quantity + +food.packPrice);
+
+</script>
+
 <div class="bg-white border border-dashed border-gray-300  p-3 rounded-lg mb-4 last:mb-0">
 	<div class="flex items-center justify-between pb-4 ">
-		<p class="font-medium text-xs">Pack 1</p>
+		<p class="font-medium text-xs">Pack {id + 1}</p>
 		<button class="bg-red-50 p-1 rounded-full"
 			><svg
 				width="14"
@@ -41,8 +57,9 @@
 			<div class=" flex-1">
 				<div class="flex mb-1">
 					<p class="flex-1 text-xs text-gray-700 mr-3">
-						<span class="block leading-tight first-letter:capitalize">OHA SOUP & EBA</span
-						><span class="block text-xxs text-gray-400">₦3,000</span>
+						<span class="block leading-tight text-sm capitalize">{food.name}</span><span
+							class="block text-xxs text-gray-400">₦{food.price}</span
+						>
 					</p>
 					<span class="flex items-center bg-gray-100 rounded-full overflow-hidden h-[25px]"
 						><button class="px-2 h-full"
@@ -60,7 +77,7 @@
 									stroke-linejoin="round"
 								/></svg
 							></button
-						><span class="text-xxs font-medium px-1">2</span><button class="px-2 h-full"
+						><span class="text-xxs font-medium px-1">{quantity}</span><button class="px-2 h-full"
 							><svg
 								width="14"
 								height="14"
@@ -92,9 +109,9 @@
 			<div class=" flex-1">
 				<div class="flex mb-1">
 					<p class="flex-1 text-xs text-gray-700 mr-3">
-						<span class="block leading-tight first-letter:capitalize"
-							>Plastic container
-						</span><span class="block text-xxs text-gray-400">₦100</span>
+						<span class="block leading-tight first-letter:capitalize">Plastic container </span><span
+							class="block text-xxs text-gray-400">₦{food.packPrice}</span
+						>
 					</p>
 				</div>
 			</div>

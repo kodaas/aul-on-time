@@ -1,35 +1,69 @@
 <script lang="ts">
+	import { cartStore, foodStore, checkoutStore } from './../../../stores';
+	import type { FoodModel, PackModel } from '$lib/model';
 	import Food from '../components/Food.svelte';
 	import MenuNav from './MenuNav.svelte';
 	import eba from '$lib/img/eba.png';
 	import goatMeat from '$lib/img/goat-meat.png';
 	import rice from '$lib/img/rice.png';
-	let foods = [
+	import bean from '$lib/img/bean.webp';
+
+	let foods: FoodModel[] = [
 		{
-			id: '1',
+			foodId: '1',
 			name: 'White Rice & Stew',
 			description: 'Fresh white rice & stew with goat meat',
-			price: '₦3,000',
+			price: '3000',
+			packPrice: '100',
 			img: rice,
-			isAvailable: true
+			isAvailable: true,
+			categories: ['breakfast', 'lunch', 'dinner']
 		},
 		{
-			id: '2',
+			foodId: '2',
 			name: 'OHA SOUP & EBA',
 			description: 'Native oha soup @ goat meat with EBA',
-			price: '₦3,000',
+			price: '3000',
+			packPrice: '100',
 			img: eba,
-			isAvailable: true
+			isAvailable: true,
+			categories: ['lunch', 'dinner']
 		},
 		{
-			id: '3',
+			foodId: '3',
 			name: 'Goat Meat',
 			description: 'Fried Goat Meat',
-			price: '₦800',
+			price: '800',
+			packPrice: '100',
 			img: goatMeat,
-			isAvailable: false
+			isAvailable: false,
+			categories: ['lunch', 'dinner']
 		},
+		{
+			foodId: '4',
+			name: 'Beans',
+			description: 'delicious native bean',
+			price: '1000',
+			packPrice: '100',
+			img: bean,
+			isAvailable: true,
+			categories: ['lunch']
+		}
 	];
+
+	$foodStore = foods;
+
+	const addToCart = (foodId: string, isAvailable: boolean) => {
+		if (isAvailable) {
+			let pack: PackModel = { foodId, quantity: 1, status: 'not ready', extras: [] };
+
+			$cartStore = [...$cartStore, pack];
+		}
+		console.log($cartStore, foodId);
+	};
+
+	$: $checkoutStore.cartSize = $cartStore.length;
+	$: $checkoutStore.Total = $checkoutStore.subTotal + $checkoutStore.deliveryFee;
 </script>
 
 <section class="space-y-5">
@@ -70,8 +104,8 @@
 			/>
 		</div> -->
 
-		{#each foods as food, id (id)}
-			<Food {...food} />
+		{#each foods as food, foodId (foodId)}
+			<Food {...food} on:click={() => addToCart(food.foodId, food.isAvailable)} />
 		{/each}
 	</div>
 </section>
