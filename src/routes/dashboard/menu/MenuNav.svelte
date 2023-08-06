@@ -14,6 +14,7 @@
 			on:click={() => {
 				selectedCategory = category.toLowerCase();
 			}}
+			on:keydown={() => {selectedCategory = category.toLowerCase()}}
 		>
 			{category}
 		</div>

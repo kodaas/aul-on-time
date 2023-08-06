@@ -1,12 +1,12 @@
 <script lang="ts">
-	export let foodId: string;
+	// export let foodId: string;
 	export let price: string;
 	export let name: string;
 	export let description: string;
 	export let img: string;
 	export let isAvailable: boolean;
-	export let categories: string[];
-	export let packPrice: string;
+	// export let categories: string[];
+	// export let packPrice: string;
 </script>
 
 <button

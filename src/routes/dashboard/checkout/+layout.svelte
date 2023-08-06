@@ -2,7 +2,7 @@
 	import Cart from '../components/Cart.svelte';
 	import type { LayoutData } from './$types';
 
-	export let data: LayoutData;
+	// export let data: LayoutData;
 </script>
 
 <section

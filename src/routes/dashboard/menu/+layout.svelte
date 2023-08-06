@@ -3,7 +3,7 @@
 	import Cart from '../components/Cart.svelte';
 	import type { LayoutData } from './$types';
 
-	export let data: LayoutData;
+	// export let data: LayoutData;
 </script>
 
 <section in:fly={{ y: 20, duration: 500 }} class="px-5 py-10 pb-28 space-y-8 relative">
