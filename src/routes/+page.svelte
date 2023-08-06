@@ -14,7 +14,7 @@
 
 <header in:fade={{ duration: 800 }} class="relative">
 	<span class="">
-		<img src={bgImg} class="h-[80vh] lg:h-full" alt="Aul On Time" />
+		<img src={bgImg} class="h-screen w-screen" alt="Aul On Time" />
 	</span>
 
 	<section class="absolute top-10 lg:top-24 w-full text-center space-y-5 lg:space-y-24">
